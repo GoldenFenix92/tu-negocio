@@ -1,0 +1,5 @@
+id,product_id,name,sku,description,sell_price,cost_price,stock,image,created_at,updated_at,category_id,supplier_id,presentation,deleted_at
+1,EBC-PRDTO-001,"Colágeno (360gr)",05157494,,50.00,30.00,32,,"2025-10-26 15:29:46","2025-11-01 17:26:40",3,3,piezas,
+2,EBC-PRDTO-002,"Sabritas Original (42 gr)",7500478043927,,15.00,10.00,39,products/rl7pBGJd4ws4Jmv5L50PbbtDVzYxwhMJX37ypbTp.webp,"2025-10-26 15:49:18","2025-11-01 17:26:40",2,2,piezas,
+3,EBC-PRDTO-003,"Coca Cola (600 ml)",75007614,,20.00,12.00,47,products/qV4Qz0SLwshtzjsJ6mG5Hz3gOzZQkPgrJp0fK7zy.webp,"2025-10-26 15:49:57","2025-11-01 17:26:40",1,1,piezas,
+4,EBC-PRDTO-004,"Mascarilla Negra",46195786,,42.00,20.00,31,,"2025-10-26 22:21:20","2025-11-01 17:26:40",3,3,cajas,

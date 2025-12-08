@@ -1,0 +1,1058 @@
+// ========================================
+// BOOTSTRAP 5 DARK THEME - EBC POS SYSTEM
+// ========================================
+
+// Google Fonts - Montserrat
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+// Variables personalizadas para el tema oscuro
+$font-family-sans-serif: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$primary: #3b82f6;
+$secondary: #6b7280;
+$success: #198754;
+$danger: #dc3545;
+$warning: #ffc107;
+$info: #0dcaf0;
+$purple: #6f42c1;
+$dark: #1f2937;
+$body-bg: #111827;
+$body-color: #e5e7eb;
+
+// Card override para tema oscuro
+$card-bg: #1f2937;
+$card-border-color: #374151;
+$card-cap-bg: #374151;
+
+// Form fields override
+$input-bg: #374151;
+$input-border-color: #4b5563;
+$input-color: #e5e7eb;
+$input-placeholder-color: #6b7280;
+$input-focus-border-color: #3b82f6;
+
+// Importar Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Importar Bootstrap Icons
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+// ========================================
+// GLOBAL DARK THEME OVERRIDES
+// ========================================
+
+[data-bs-theme="dark"] {
+    --bs-body-bg: #111827;
+    --bs-body-color: #e5e7eb;
+    --bs-border-color: #374151;
+    --bs-secondary-bg: #1f2937;
+    --bs-tertiary-bg: #374151;
+}
+
+body {
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+
+// ========================================
+// AUTH PAGES - FLOATING CARD DESIGN
+// ========================================
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
+}
+
+.auth-card {
+    background: rgba(31, 41, 55, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 1rem;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    padding: 2rem;
+    width: 100%;
+    max-width: 28rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 
+            0 30px 60px -15px rgba(0, 0, 0, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    }
+
+    @media (min-width: 576px) {
+        padding: 2.5rem;
+    }
+}
+
+.auth-logo {
+    max-height: 120px;
+    width: auto;
+    margin-bottom: 1.5rem;
+}
+
+.auth-title {
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: #f3f4f6;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+// ========================================
+// CARDS - DARK THEME STYLING
+// ========================================
+
+.card {
+    background-color: #1f2937 !important;
+    border: 1px solid #374151 !important;
+    color: #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+    .card-header {
+        background-color: #374151;
+        border-bottom: 1px solid #4b5563;
+        color: #f3f4f6;
+    }
+
+    .card-footer {
+        background-color: #374151;
+        border-top: 1px solid #4b5563;
+    }
+
+    .card-title {
+        color: #f3f4f6;
+    }
+
+    .card-subtitle {
+        color: #9ca3af !important;
+    }
+
+    .card-text {
+        color: #d1d5db;
+    }
+}
+
+// Card hover effect
+.card.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+}
+
+// ========================================
+// FORM CONTROLS - DARK THEME
+// ========================================
+
+.form-control,
+.form-select {
+    background-color: #374151 !important;
+    border-color: #4b5563 !important;
+    color: #e5e7eb !important;
+
+    &::placeholder {
+        color: #6b7280 !important;
+    }
+
+    &:focus {
+        background-color: #374151 !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
+        color: #e5e7eb !important;
+    }
+
+    &:disabled,
+    &[readonly] {
+        background-color: #1f2937 !important;
+        color: #6b7280 !important;
+    }
+}
+
+// Input group styling
+.input-group-text {
+    background-color: #4b5563 !important;
+    border-color: #4b5563 !important;
+    color: #d1d5db !important;
+}
+
+// Form labels
+.form-label {
+    color: #d1d5db;
+    font-weight: 500;
+}
+
+// Form text (hints)
+.form-text {
+    color: #6b7280 !important;
+}
+
+// Form check (checkboxes/radios)
+.form-check-input {
+    background-color: #374151;
+    border-color: #4b5563;
+
+    &:checked {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+    }
+
+    &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+    }
+}
+
+.form-check-label {
+    color: #d1d5db;
+}
+
+// ========================================
+// BUTTONS - ENHANCED DARK THEME
+// ========================================
+
+.btn {
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+// Primary button
+.btn-primary {
+    background-color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+
+    &:hover,
+    &:focus {
+        background-color: #2563eb !important;
+        border-color: #2563eb !important;
+    }
+}
+
+// Success button
+.btn-success {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+
+    &:hover,
+    &:focus {
+        background-color: #059669 !important;
+        border-color: #059669 !important;
+    }
+}
+
+// Danger button
+.btn-danger {
+    background-color: #ef4444 !important;
+    border-color: #ef4444 !important;
+
+    &:hover,
+    &:focus {
+        background-color: #dc2626 !important;
+        border-color: #dc2626 !important;
+    }
+}
+
+// Warning button
+.btn-warning {
+    background-color: #f59e0b !important;
+    border-color: #f59e0b !important;
+    color: #1f2937 !important;
+
+    &:hover,
+    &:focus {
+        background-color: #d97706 !important;
+        border-color: #d97706 !important;
+    }
+}
+
+// Secondary button
+.btn-secondary {
+    background-color: #4b5563 !important;
+    border-color: #4b5563 !important;
+    color: #e5e7eb !important;
+
+    &:hover,
+    &:focus {
+        background-color: #374151 !important;
+        border-color: #374151 !important;
+    }
+}
+
+// Info button
+.btn-info {
+    background-color: #06b6d4 !important;
+    border-color: #06b6d4 !important;
+    color: #1f2937 !important;
+
+    &:hover,
+    &:focus {
+        background-color: #0891b2 !important;
+        border-color: #0891b2 !important;
+    }
+}
+
+// Purple button (custom)
+.btn-purple {
+    background-color: #8b5cf6 !important;
+    border-color: #8b5cf6 !important;
+    color: #ffffff !important;
+
+    &:hover,
+    &:focus {
+        background-color: #7c3aed !important;
+        border-color: #7c3aed !important;
+    }
+}
+
+// Outline buttons for dark theme
+.btn-outline-primary {
+    color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+
+    &:hover {
+        background-color: #3b82f6 !important;
+        color: #ffffff !important;
+    }
+}
+
+.btn-outline-secondary {
+    color: #9ca3af !important;
+    border-color: #4b5563 !important;
+
+    &:hover {
+        background-color: #4b5563 !important;
+        color: #ffffff !important;
+    }
+}
+
+.btn-outline-success {
+    color: #10b981 !important;
+    border-color: #10b981 !important;
+
+    &:hover {
+        background-color: #10b981 !important;
+        color: #ffffff !important;
+    }
+}
+
+.btn-outline-danger {
+    color: #ef4444 !important;
+    border-color: #ef4444 !important;
+
+    &:hover {
+        background-color: #ef4444 !important;
+        color: #ffffff !important;
+    }
+}
+
+// ========================================
+// TYPOGRAPHY - TEXT HIERARCHY
+// ========================================
+
+// Page titles
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #f3f4f6;
+}
+
+// Title classes for consistency
+.text-title {
+    color: #f3f4f6 !important;
+    font-weight: 600;
+}
+
+.text-subtitle {
+    color: #9ca3af !important;
+    font-weight: 500;
+}
+
+.text-muted,
+.text-secondary {
+    color: #6b7280 !important;
+}
+
+// Emphasize important text
+.text-white {
+    color: #ffffff !important;
+}
+
+.text-light {
+    color: #e5e7eb !important;
+}
+
+// Bootstrap's fw classes enhancement
+.fw-semibold {
+    font-weight: 600 !important;
+}
+
+.fw-medium {
+    font-weight: 500 !important;
+}
+
+// ========================================
+// TABLES - DARK THEME
+// ========================================
+
+.table {
+    color: #e5e7eb;
+
+    >thead {
+        background-color: #374151;
+        color: #f3f4f6;
+
+        th {
+            border-bottom-color: #4b5563;
+            font-weight: 600;
+        }
+    }
+
+    >tbody>tr {
+        border-color: #374151;
+
+        &:hover {
+            background-color: rgba(55, 65, 81, 0.5);
+        }
+    }
+
+    &.table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: rgba(55, 65, 81, 0.3);
+    }
+}
+
+.table-dark {
+    --bs-table-bg: #1f2937;
+    --bs-table-border-color: #374151;
+    --bs-table-hover-bg: #374151;
+}
+
+// ========================================
+// ALERTS - ENHANCED
+// ========================================
+
+.alert {
+    border: 1px solid;
+    border-radius: 0.5rem;
+
+    &.alert-success {
+        background-color: rgba(16, 185, 129, 0.1);
+        border-color: rgba(16, 185, 129, 0.3);
+        color: #34d399;
+    }
+
+    &.alert-danger {
+        background-color: rgba(239, 68, 68, 0.1);
+        border-color: rgba(239, 68, 68, 0.3);
+        color: #f87171;
+    }
+
+    &.alert-warning {
+        background-color: rgba(245, 158, 11, 0.1);
+        border-color: rgba(245, 158, 11, 0.3);
+        color: #fbbf24;
+    }
+
+    &.alert-info {
+        background-color: rgba(6, 182, 212, 0.1);
+        border-color: rgba(6, 182, 212, 0.3);
+        color: #22d3ee;
+    }
+}
+
+// ========================================
+// BADGES - DARK THEME ENHANCED
+// ========================================
+
+.badge {
+    font-weight: 500;
+}
+
+.bg-success-subtle {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+.text-success-emphasis {
+    color: #34d399 !important;
+}
+
+.border-success-subtle {
+    border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.bg-danger-subtle {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+.text-danger-emphasis {
+    color: #f87171 !important;
+}
+
+.border-danger-subtle {
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.bg-warning-subtle {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+.text-warning-emphasis {
+    color: #fbbf24 !important;
+}
+
+.border-warning-subtle {
+    border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.bg-primary-subtle {
+    background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+.text-primary-emphasis {
+    color: #60a5fa !important;
+}
+
+.border-primary-subtle {
+    border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.bg-info-subtle {
+    background-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+.text-info-emphasis {
+    color: #22d3ee !important;
+}
+
+.border-info-subtle {
+    border-color: rgba(6, 182, 212, 0.3) !important;
+}
+
+// Purple badge
+.bg-purple {
+    background-color: #8b5cf6 !important;
+}
+
+.text-purple {
+    color: #a78bfa !important;
+}
+
+// ========================================
+// MODALS - DARK THEME
+// ========================================
+
+.modal-content {
+    background-color: #1f2937 !important;
+    border: 1px solid #374151;
+    color: #e5e7eb;
+}
+
+.modal-header {
+    border-bottom-color: #374151;
+
+    .modal-title {
+        color: #f3f4f6;
+    }
+
+    .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+}
+
+.modal-footer {
+    border-top-color: #374151;
+}
+
+// ========================================
+// DROPDOWNS - DARK THEME
+// ========================================
+
+.dropdown-menu {
+    background-color: #1f2937 !important;
+    border-color: #374151 !important;
+}
+
+.dropdown-item {
+    color: #d1d5db !important;
+
+    &:hover,
+    &:focus {
+        background-color: #374151 !important;
+        color: #ffffff !important;
+    }
+
+    &.active {
+        background-color: #3b82f6 !important;
+        color: #ffffff !important;
+    }
+}
+
+.dropdown-divider {
+    border-color: #374151;
+}
+
+// ========================================
+// PAGINATION - DARK THEME
+// ========================================
+
+.pagination {
+    .page-link {
+        background-color: #1f2937;
+        border-color: #374151;
+        color: #9ca3af;
+
+        &:hover {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #ffffff;
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+    }
+
+    .page-item.disabled .page-link {
+        background-color: #111827;
+        border-color: #374151;
+        color: #4b5563;
+    }
+}
+
+// ========================================
+// SIDEBAR STYLES
+// ========================================
+
+.app-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar-offcanvas {
+    width: 280px !important;
+    border-right: 1px solid #374151 !important;
+    background-color: #1f2937 !important;
+
+    @media (min-width: 992px) {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        height: 100vh !important;
+        transform: none !important;
+        visibility: visible !important;
+        z-index: 1030;
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .offcanvas-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        overflow-y: auto;
+    }
+
+    &::-webkit-scrollbar,
+    .offcanvas-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track,
+    .offcanvas-body::-webkit-scrollbar-track {
+        background: #1f2937;
+    }
+
+    &::-webkit-scrollbar-thumb,
+    .offcanvas-body::-webkit-scrollbar-thumb {
+        background: #4b5563;
+        border-radius: 3px;
+
+        &:hover {
+            background: #6b7280;
+        }
+    }
+}
+
+.sidebar-link {
+    color: #9ca3af;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background-color: #374151;
+        color: #ffffff;
+    }
+
+    &.active {
+        background-color: #374151;
+        color: #ffffff;
+    }
+
+    .collapse-icon {
+        transition: transform 0.2s ease;
+    }
+
+    &[aria-expanded="true"] .collapse-icon {
+        transform: rotate(180deg);
+    }
+}
+
+.sidebar-link-sub {
+    color: #6b7280;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+        background-color: #374151;
+        color: #ffffff;
+    }
+
+    &.active {
+        background-color: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+    }
+}
+
+// Main content wrapper
+.main-content-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #111827;
+
+    @media (min-width: 992px) {
+        margin-left: 280px;
+        width: calc(100% - 280px);
+    }
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+
+    @media (min-width: 768px) {
+        padding: 1.5rem 2rem;
+    }
+
+    @media (min-width: 992px) {
+        padding: 2rem 2.5rem;
+    }
+
+    @media (min-width: 1400px) {
+        padding: 2rem 3rem;
+    }
+}
+
+// ========================================
+// HEADER BAR
+// ========================================
+
+.header-bar {
+    background-color: #1f2937;
+    border-bottom: 1px solid #374151;
+    padding: 0.75rem 1.5rem;
+}
+
+// ========================================
+// UTILITY CLASSES
+// ========================================
+
+// Gray background utilities
+.bg-gray-900 {
+    background-color: #111827 !important;
+}
+
+.bg-gray-800 {
+    background-color: #1f2937 !important;
+}
+
+.bg-gray-700 {
+    background-color: #374151 !important;
+}
+
+.bg-gray-600 {
+    background-color: #4b5563 !important;
+}
+
+.bg-gray-500 {
+    background-color: #6b7280 !important;
+}
+
+// Text gray utilities
+.text-gray-100 {
+    color: #f3f4f6 !important;
+}
+
+.text-gray-200 {
+    color: #e5e7eb !important;
+}
+
+.text-gray-300 {
+    color: #d1d5db !important;
+}
+
+.text-gray-400 {
+    color: #9ca3af !important;
+}
+
+.text-gray-500 {
+    color: #6b7280 !important;
+}
+
+// Border utilities
+.border-gray-600 {
+    border-color: #4b5563 !important;
+}
+
+.border-gray-700 {
+    border-color: #374151 !important;
+}
+
+// Size utilities
+.min-vh-100 {
+    min-height: 100vh !important;
+}
+
+.object-fit-cover {
+    object-fit: cover !important;
+}
+
+.extra-small {
+    font-size: 0.7rem !important;
+}
+
+// Transition utilities
+.transition-transform {
+    transition: transform 0.2s ease;
+}
+
+.transition-opacity {
+    transition: opacity 0.3s ease;
+}
+
+.transition-all {
+    transition: all 0.2s ease;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+}
+
+// Gap utilities (for older Bootstrap)
+.gap-1 {
+    gap: 0.25rem !important;
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+.gap-3 {
+    gap: 1rem !important;
+}
+
+.gap-4 {
+    gap: 1.5rem !important;
+}
+
+// ========================================
+// LIST GROUP - DARK THEME
+// ========================================
+
+.list-group-item {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #d1d5db;
+
+    &.active {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+    }
+
+    &:hover {
+        background-color: #374151;
+    }
+}
+
+// ========================================
+// BREADCRUMB - DARK THEME
+// ========================================
+
+.breadcrumb {
+    background-color: transparent;
+
+    .breadcrumb-item {
+        color: #9ca3af;
+
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+
+            &:hover {
+                color: #60a5fa;
+            }
+        }
+
+        &.active {
+            color: #d1d5db;
+        }
+
+        +.breadcrumb-item::before {
+            color: #6b7280;
+        }
+    }
+}
+
+// ========================================
+// NAVBAR - DARK THEME
+// ========================================
+
+.navbar-dark {
+    .navbar-brand {
+        color: #ffffff;
+    }
+
+    .navbar-nav .nav-link {
+        color: #9ca3af;
+
+        &:hover,
+        &.active {
+            color: #ffffff;
+        }
+    }
+}
+
+// ========================================
+// PROGRESS BAR - DARK THEME
+// ========================================
+
+.progress {
+    background-color: #374151;
+}
+
+// ========================================
+// SCROLLBAR GLOBAL STYLING
+// ========================================
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+
+    &:hover {
+        background: #6b7280;
+    }
+}
+
+// Firefox scrollbar
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #1f2937;
+}
+
+// ========================================
+// LINK STYLING
+// ========================================
+
+a {
+    color: #3b82f6;
+
+    &:hover {
+        color: #60a5fa;
+    }
+}
+
+// ========================================
+// SELECTION STYLING
+// ========================================
+
+::selection {
+    background-color: rgba(59, 130, 246, 0.3);
+    color: #ffffff;
+}
+
+// ========================================
+// ACCORDION - DARK THEME
+// ========================================
+
+.accordion-item {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+.accordion-button {
+    background-color: #1f2937;
+    color: #e5e7eb;
+
+    &:not(.collapsed) {
+        background-color: #374151;
+        color: #ffffff;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+    }
+
+    &::after {
+        filter: invert(1);
+    }
+}
+
+.accordion-body {
+    background-color: #1f2937;
+    color: #d1d5db;
+}
+
+// ========================================
+// TOOLTIP & POPOVER - DARK THEME
+// ========================================
+
+.tooltip-inner {
+    background-color: #374151;
+    color: #ffffff;
+}
+
+.popover {
+    background-color: #1f2937;
+    border-color: #374151;
+
+    .popover-header {
+        background-color: #374151;
+        border-bottom-color: #4b5563;
+        color: #f3f4f6;
+    }
+
+    .popover-body {
+        color: #d1d5db;
+    }
+}
