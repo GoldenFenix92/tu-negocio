@@ -45,5 +45,14 @@ class AppServiceProvider extends ServiceProvider
                 return $user->hasPermissionTo($permission);
             });
         }
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('app_settings')) {
+                $settings = app(\App\Services\SettingsService::class)->getAllSettings();
+                \Illuminate\Support\Facades\View::share('appSettings', $settings);
+            }
+        } catch (\Exception $e) {
+            // Ignore if DB connection fails or table doesn't exist yet
+        }
     }
 }

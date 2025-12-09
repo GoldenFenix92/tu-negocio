@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CashControlController; // Import CashControlController
 use App\Http\Controllers\CouponController; // Import CouponController
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -57,14 +58,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('suppliers/{supplier}/image', [App\Http\Controllers\SupplierController::class, 'destroyImage'])->name('suppliers.destroyImage')->middleware('can:suppliers.edit');
 
     // Product Routes
-    Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index')->middleware('can:products.view');
-    Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('products.create')->middleware('can:products.create');
-    Route::post('/products', [App\Http\Controllers\ProductController::class, 'store'])->name('products.store')->middleware('can:products.create');
-    Route::get('/products/{product}/edit', [App\Http\Controllers\ProductController::class, 'edit'])->name('products.edit')->middleware('can:products.edit');
-    Route::put('/products/{product}', [App\Http\Controllers\ProductController::class, 'update'])->name('products.update')->middleware('can:products.edit');
-    Route::delete('/products/{product}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('products.destroy')->middleware('can:products.delete');
-    Route::post('products/{id}/restore', [\App\Http\Controllers\ProductController::class, 'restore'])->name('products.restore')->middleware('can:products.delete');
-    Route::delete('products/{product}/image', [\App\Http\Controllers\ProductController::class, 'destroyImage'])->name('products.destroyImage')->middleware('can:products.edit');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('can:products.view');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('can:products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store')->middleware('can:products.create');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('can:products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('can:products.edit');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('can:products.delete');
+    Route::post('products/{id}/restore', [ProductController::class, 'restore'])->name('products.restore')->middleware('can:products.delete');
+    Route::delete('products/{product}/image', [ProductController::class, 'destroyImage'])->name('products.destroyImage')->middleware('can:products.edit');
 
     // Service Routes
     Route::get('services', [ServiceController::class, 'index'])->name('services.index')->middleware('can:services.view');
@@ -181,6 +182,12 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:sales_history.view'])->group(function () {
 
     });
+
+    // Settings Routes
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index')->middleware('can:user_management.view'); // Assuming admin access
+    Route::post('/settings', [SettingsController::class, 'update'])->name('settings.update')->middleware('can:user_management.edit');
+    Route::get('/settings/suggest-colors', [SettingsController::class, 'suggestColors'])->name('settings.suggest_colors');
+    Route::get('/settings/suggest-fonts', [SettingsController::class, 'suggestFonts'])->name('settings.suggest_fonts');
 
     // Admin Role Management Route
     Route::get('/admin/role-management', function () {

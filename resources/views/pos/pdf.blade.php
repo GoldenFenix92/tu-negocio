@@ -274,11 +274,11 @@
             <tr>
                 <td class="header-logo">
                     @if($logoBase64)
-                        <img src="{{ $logoBase64 }}" alt="Logo EBC">
+                        <img src="{{ $logoBase64 }}" alt="Logo">
                     @endif
                 </td>
                 <td class="header-content">
-                    <div class="company-name">EBC - Elise Beauty Center</div>
+                    <div class="company-name">{{ $appSettings['app_name'] ?? 'EBC - Elise Beauty Center' }}</div>
                     <div class="receipt-title">RECIBO DE VENTA</div>
                 </td>
                 <td class="folio-badge">
@@ -393,6 +393,15 @@
     <!-- Footer -->
     <div class="footer">
         <p class="thank-you">¡Gracias por su compra!</p>
+        @if(isset($appSettings['address']))
+            <p>{{ $appSettings['address'] }}</p>
+        @endif
+        @if(isset($appSettings['phone']))
+            <p>Tel: {{ $appSettings['phone'] }}</p>
+        @endif
+        @if(isset($appSettings['email']))
+            <p>Email: {{ $appSettings['email'] }}</p>
+        @endif
         <p>Este recibo es generado automáticamente por el sistema POS.</p>
         <p>Fecha de generación: {{ now()->format('d/m/Y H:i:s') }}</p>
     </div>

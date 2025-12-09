@@ -9,8 +9,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
-        <link rel="icon" href="{{ asset('images/brand-logo.png') }}" type="image/png">
-        <link rel="apple-touch-icon" href="{{ asset('images/brand-logo.png') }}">
+        <link rel="icon" href="{{ $appSettings['favicon'] ?? asset('favicon.ico') }}" type="image/x-icon">
+        <link rel="apple-touch-icon" href="{{ $appSettings['logo'] ?? asset('images/brand-logo.png') }}">
         @yield('head')
     </head>
     <body class="auth-page">

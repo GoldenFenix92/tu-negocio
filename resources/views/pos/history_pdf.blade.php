@@ -194,11 +194,11 @@
             <tr>
                 <td class="header-logo">
                     @if($logoBase64)
-                        <img src="{{ $logoBase64 }}" alt="Logo EBC">
+                        <img src="{{ $logoBase64 }}" alt="Logo">
                     @endif
                 </td>
                 <td class="header-content">
-                    <div class="company-name">EBC - Elise Beauty Center</div>
+                    <div class="company-name">{{ $appSettings['app_name'] ?? 'EBC - Elise Beauty Center' }}</div>
                     <div class="report-title">HISTORIAL DE VENTAS</div>
                     <div class="report-date">Generado el {{ now()->format('d/m/Y H:i:s') }}</div>
                 </td>
@@ -289,7 +289,7 @@
     @endif
 
     <div class="footer">
-        <p>Reporte generado automáticamente por el sistema POS de EBC.</p>
+        <p>Reporte generado automáticamente por el sistema POS de {{ $appSettings['app_name'] ?? 'EBC' }}.</p>
         <p>Fecha de generación: {{ now()->format('d/m/Y H:i:s') }}</p>
     </div>
 

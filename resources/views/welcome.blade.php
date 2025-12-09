@@ -9,15 +9,15 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ asset('images/brand-logo.png') }}">
+    <link rel="icon" href="{{ $appSettings['favicon'] ?? asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ $appSettings['logo'] ?? asset('images/brand-logo.png') }}">
 </head>
 
 <body class="auth-page">
     <div class="auth-card" style="max-width: 32rem;">
         <!-- Logo -->
         <div class="text-center mb-4">
-            <img src="{{ asset('images/brand-logo.png') }}" alt="{{ config('app.name') }}" class="auth-logo"
+            <img src="{{ $appSettings['logo'] ?? asset('images/brand-logo.png') }}" alt="{{ config('app.name') }}" class="auth-logo"
                 style="max-height: 180px;">
         </div>
 

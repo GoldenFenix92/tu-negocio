@@ -427,7 +427,21 @@ class PosController extends BaseController
     private function getLogoBase64(): ?string
     {
         if (extension_loaded('gd')) {
-            $logoPath = public_path('images/brand-logo.png');
+            $settings = app(\App\Services\SettingsService::class)->getAllSettings();
+            $logoUrl = $settings['logo'] ?? null;
+            
+            if ($logoUrl) {
+                // Convert URL to local path if it's stored locally
+                $logoPath = str_replace('/storage', storage_path('app/public'), $logoUrl);
+                // Handle case where it might be a full URL or relative path
+                if (!file_exists($logoPath)) {
+                     // Fallback to public path if it's a default asset
+                     $logoPath = public_path('images/brand-logo.png');
+                }
+            } else {
+                $logoPath = public_path('images/brand-logo.png');
+            }
+
             if (file_exists($logoPath)) {
                 return 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath));
             }
@@ -483,14 +497,7 @@ class PosController extends BaseController
 
         $sales = $query->get();
 
-        $logoBase64 = null;
-        if (extension_loaded('gd')) {
-            $logoPath = public_path('images/brand-logo.png');
-            if (file_exists($logoPath)) {
-                $logoData = file_get_contents($logoPath);
-                $logoBase64 = 'data:image/png;base64,' . base64_encode($logoData);
-            }
-        }
+        $logoBase64 = $this->getLogoBase64();
 
         $pdf = Pdf::loadView('pos.history_pdf', compact('sales', 'logoBase64'))
             ->setPaper('a4', 'portrait')

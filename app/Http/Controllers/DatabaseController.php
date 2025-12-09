@@ -489,7 +489,6 @@ class DatabaseController extends BaseController
                     $filePath,
                     basename($filePath),
                     mime_content_type($filePath),
-                    filesize($filePath),
                     0,
                     true
                 ),
