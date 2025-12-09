@@ -9,7 +9,7 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
-        <h2 class="fw-semibold fs-4 text-white m-0"><?php echo e(__('Profile')); ?></h2>
+        <h2 class="fw-semibold fs-4 text-white m-0">Perfil</h2>
      <?php $__env->endSlot(); ?>
 
     <div class="py-4">

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="fw-semibold fs-4 text-white m-0">
-            {{ __('Elise Beauty Center') }} {{-- AQUI SE CAMBIA EL NOMBRE DEL DASHBOARD --}}
+            Elise Beauty Center {{-- AQUI SE CAMBIA EL NOMBRE DEL DASHBOARD --}}
         </h2>
     </x-slot>
 
@@ -16,9 +16,8 @@
 
             <div class="card bg-gray-700 shadow-sm rounded">
                 <div class="card-body p-4 text-center">
-                    <h3 class="fw-bold text-white mb-0">
-                        {{ __("Bienvenido al Dashboard") }}, {{ auth()->user()->name ?? auth()->user()->email }}
-                    </h3>
+                    Bienvenido al Dashboard, {{ auth()->user()->name ?? auth()->user()->email }}
+
                 </div>
             </div>
 

@@ -2448,111 +2448,125 @@ class DatabaseController extends BaseController
 
         // Filtrar sentencias para solo incluir las tablas seleccionadas
         $filteredStatements = [];
-        foreach ($allStatements as $statement) {
-            $tableName = $this->extractTableNameFromStatement($statement);
-            if ($tableName && in_array($tableName, $selectedTables)) {
-                $filteredStatements[] = $statement;
+        
+        if (empty($selectedTables)) {
+            // Si no hay tablas seleccionadas, restaurar todo
+            $filteredStatements = $allStatements;
+        } else {
+            foreach ($allStatements as $statement) {
+                $tableName = $this->extractTableNameFromStatement($statement);
+                if ($tableName && in_array($tableName, $selectedTables)) {
+                    $filteredStatements[] = $statement;
+                }
             }
         }
 
         Log::info("Sentencias filtradas para restaurar: " . count($filteredStatements));
+        
+        // Desactivar verificación de claves foráneas
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // Ejecutar solo las sentencias filtradas
-        foreach ($filteredStatements as $index => $statement) {
-            if (empty($statement)) continue;
+        try {
+            // Ejecutar solo las sentencias filtradas
+            foreach ($filteredStatements as $index => $statement) {
+                if (empty($statement)) continue;
 
-            try {
-                // Determinar el tipo de sentencia
-                $statementType = $this->getStatementType($statement);
+                try {
+                    // Determinar el tipo de sentencia
+                    $statementType = $this->getStatementType($statement);
 
-                Log::info("Ejecutando sentencia {$index} para tabla seleccionada: {$statementType}");
+                    Log::info("Ejecutando sentencia {$index} para tabla seleccionada: {$statementType}");
 
-                switch ($statementType) {
-                    case 'CREATE TABLE':
-                        DB::statement($statement);
-                        Log::info("Tabla creada exitosamente");
-                        break;
+                    switch ($statementType) {
+                        case 'CREATE TABLE':
+                            DB::statement($statement);
+                            Log::info("Tabla creada exitosamente");
+                            break;
 
-                    case 'INSERT':
-                        DB::statement($statement);
-                        Log::info("Datos insertados exitosamente");
-                        break;
+                        case 'INSERT':
+                            DB::statement($statement);
+                            Log::info("Datos insertados exitosamente");
+                            break;
 
-                    case 'DROP TABLE':
-                        DB::statement($statement);
-                        Log::info("Tabla eliminada exitosamente");
-                        break;
+                        case 'DROP TABLE':
+                            DB::statement($statement);
+                            Log::info("Tabla eliminada exitosamente");
+                            break;
 
-                    case 'UPDATE':
-                        DB::statement($statement);
-                        Log::info("Datos actualizados exitosamente");
-                        break;
+                        case 'UPDATE':
+                            DB::statement($statement);
+                            Log::info("Datos actualizados exitosamente");
+                            break;
 
-                    case 'DELETE':
-                        DB::statement($statement);
-                        Log::info("Datos eliminados exitosamente");
-                        break;
+                        case 'DELETE':
+                            DB::statement($statement);
+                            Log::info("Datos eliminados exitosamente");
+                            break;
 
-                    case 'ALTER TABLE':
-                        DB::statement($statement);
-                        Log::info("Tabla modificada exitosamente");
-                        break;
+                        case 'ALTER TABLE':
+                            DB::statement($statement);
+                            Log::info("Tabla modificada exitosamente");
+                            break;
 
-                    case 'TRUNCATE TABLE':
-                        DB::statement($statement);
-                        Log::info("Tabla truncada exitosamente");
-                        break;
+                        case 'TRUNCATE TABLE':
+                            DB::statement($statement);
+                            Log::info("Tabla truncada exitosamente");
+                            break;
 
-                    case 'REPLACE INTO':
-                        DB::statement($statement);
-                        Log::info("Datos reemplazados exitosamente");
-                        break;
+                        case 'REPLACE INTO':
+                            DB::statement($statement);
+                            Log::info("Datos reemplazados exitosamente");
+                            break;
 
-                    case 'SET':
-                        DB::statement($statement);
-                        Log::info("Configuración aplicada exitosamente");
-                        break;
+                        case 'SET':
+                            DB::statement($statement);
+                            Log::info("Configuración aplicada exitosamente");
+                            break;
 
-                    case 'LOCK TABLES':
-                        DB::statement($statement);
-                        Log::info("Tablas bloqueadas exitosamente");
-                        break;
+                        case 'LOCK TABLES':
+                            DB::statement($statement);
+                            Log::info("Tablas bloqueadas exitosamente");
+                            break;
 
-                    case 'UNLOCK TABLES':
-                        DB::statement($statement);
-                        Log::info("Tablas desbloqueadas exitosamente");
-                        break;
+                        case 'UNLOCK TABLES':
+                            DB::statement($statement);
+                            Log::info("Tablas desbloqueadas exitosamente");
+                            break;
 
-                    default:
-                        // Para otras sentencias, intentar ejecutar
-                        DB::statement($statement);
-                        Log::info("Sentencia ejecutada: " . substr($statementType, 0, 50) . "...");
-                        break;
-                }
+                        default:
+                            // Para otras sentencias, intentar ejecutar
+                            DB::statement($statement);
+                            Log::info("Sentencia ejecutada: " . substr($statementType, 0, 50) . "...");
+                            break;
+                    }
 
-                $results['executed_statements']++;
+                    $results['executed_statements']++;
 
-            } catch (\Exception $e) {
-                $error = "Error en sentencia {$index}: " . $e->getMessage() . " | SQL: " . substr($statement, 0, 100) . "...";
-                $results['errors'][] = $error;
-                $results['failed_statements']++;
-                Log::error($error);
+                } catch (\Exception $e) {
+                    $error = "Error en sentencia {$index}: " . $e->getMessage() . " | SQL: " . substr($statement, 0, 100) . "...";
+                    $results['errors'][] = $error;
+                    $results['failed_statements']++;
+                    Log::error($error);
 
-                // Si es un error de tabla que ya existe, intentar con IF NOT EXISTS
-                if (stripos($e->getMessage(), 'already exists') !== false && stripos($statement, 'CREATE TABLE') === 0) {
-                    Log::warning("Intentando crear tabla con IF NOT EXISTS");
-                    try {
-                        $modifiedStatement = preg_replace('/^CREATE TABLE /i', 'CREATE TABLE IF NOT EXISTS ', $statement);
-                        DB::statement($modifiedStatement);
-                        $results['executed_statements']++;
-                        $results['warnings'][] = "Tabla ya existía, se creó con IF NOT EXISTS";
-                        Log::info("Tabla creada con IF NOT EXISTS");
-                    } catch (\Exception $e2) {
-                        $results['errors'][] = "Error incluso con IF NOT EXISTS: " . $e2->getMessage();
-                        Log::error("Error con IF NOT EXISTS: " . $e2->getMessage());
+                    // Si es un error de tabla que ya existe, intentar con IF NOT EXISTS
+                    if (stripos($e->getMessage(), 'already exists') !== false && stripos($statement, 'CREATE TABLE') === 0) {
+                        Log::warning("Intentando crear tabla con IF NOT EXISTS");
+                        try {
+                            $modifiedStatement = preg_replace('/^CREATE TABLE /i', 'CREATE TABLE IF NOT EXISTS ', $statement);
+                            DB::statement($modifiedStatement);
+                            $results['executed_statements']++;
+                            $results['warnings'][] = "Tabla ya existía, se creó con IF NOT EXISTS";
+                            Log::info("Tabla creada con IF NOT EXISTS");
+                        } catch (\Exception $e2) {
+                            $results['errors'][] = "Error incluso con IF NOT EXISTS: " . $e2->getMessage();
+                            Log::error("Error con IF NOT EXISTS: " . $e2->getMessage());
+                        }
                     }
                 }
             }
+        } finally {
+            // Reactivar verificación de claves foráneas
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
 
         Log::info("Restauración selectiva completada. Ejecutadas: {$results['executed_statements']}, Fallidas: {$results['failed_statements']}");

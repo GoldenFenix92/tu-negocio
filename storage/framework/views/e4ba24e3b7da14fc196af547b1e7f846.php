@@ -1,7 +1,7 @@
 <section>
     <header>
-        <h5 class="fw-medium"><?php echo e(__('Update Password')); ?></h5>
-        <p class="small text-secondary"><?php echo e(__('Ensure your account is using a long, random password to stay secure.')); ?></p>
+        <h5 class="fw-medium">Actualizar Contraseña</h5>
+        <p class="small text-secondary">Asegúrate de que tu cuenta esté usando una contraseña larga y aleatoria para mantenerse segura.</p>
     </header>
 
     <form method="post" action="<?php echo e(route('password.update')); ?>" class="mt-4">
@@ -9,7 +9,7 @@
         <?php echo method_field('put'); ?>
 
         <div class="mb-3">
-            <label for="update_password_current_password" class="form-label"><?php echo e(__('Current Password')); ?></label>
+            <label for="update_password_current_password" class="form-label">Contraseña Actual</label>
             <input id="update_password_current_password" name="current_password" type="password" class="form-control" autocomplete="current-password" />
             <?php $__errorArgs = ['current_password', 'updatePassword'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -22,7 +22,7 @@ unset($__errorArgs, $__bag); ?>
         </div>
 
         <div class="mb-3">
-            <label for="update_password_password" class="form-label"><?php echo e(__('New Password')); ?></label>
+            <label for="update_password_password" class="form-label">Nueva Contraseña</label>
             <input id="update_password_password" name="password" type="password" class="form-control" autocomplete="new-password" />
             <?php $__errorArgs = ['password', 'updatePassword'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -35,7 +35,7 @@ unset($__errorArgs, $__bag); ?>
         </div>
 
         <div class="mb-3">
-            <label for="update_password_password_confirmation" class="form-label"><?php echo e(__('Confirm Password')); ?></label>
+            <label for="update_password_password_confirmation" class="form-label">Confirmar Contraseña</label>
             <input id="update_password_password_confirmation" name="password_confirmation" type="password" class="form-control" autocomplete="new-password" />
             <?php $__errorArgs = ['password_confirmation', 'updatePassword'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -49,12 +49,11 @@ unset($__errorArgs, $__bag); ?>
 
         <div class="d-flex align-items-center gap-3">
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-check-lg me-1"></i><?php echo e(__('Save')); ?>
-
+                <i class="bi bi-check-lg me-1"></i>Guardar
             </button>
 
             <?php if(session('status') === 'password-updated'): ?>
-                <p class="small text-success mb-0"><?php echo e(__('Saved.')); ?></p>
+                <p class="small text-success mb-0">Guardado.</p>
             <?php endif; ?>
         </div>
     </form>

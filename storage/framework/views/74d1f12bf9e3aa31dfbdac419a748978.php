@@ -10,7 +10,7 @@
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
         <h2 class="fw-semibold fs-4 text-white m-0">
-            <?php echo e(__('Elise Beauty Center')); ?> 
+            Elise Beauty Center 
         </h2>
      <?php $__env->endSlot(); ?>
 
@@ -25,10 +25,9 @@
 
             <div class="card bg-gray-700 shadow-sm rounded">
                 <div class="card-body p-4 text-center">
-                    <h3 class="fw-bold text-white mb-0">
-                        <?php echo e(__("Bienvenido al Dashboard")); ?>, <?php echo e(auth()->user()->name ?? auth()->user()->email); ?>
+                    Bienvenido al Dashboard, <?php echo e(auth()->user()->name ?? auth()->user()->email); ?>
 
-                    </h3>
+
                 </div>
             </div>
 
