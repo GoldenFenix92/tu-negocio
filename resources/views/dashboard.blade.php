@@ -138,8 +138,8 @@
                                         </div>
                                     </div>
                                     <div class="ms-3">
-                                        <h3 class="small fw-medium text-primary mb-1">Punto de Venta</h3>
-                                        <p class="extra-small text-primary mb-0">Realizar ventas</p>
+                                        <h3 class="small fw-semibold text-white mb-1">Punto de Venta</h3>
+                                        <p class="extra-small text-white mb-0">Realizar ventas</p>
                                     </div>
                                 </div>
                             </div>
@@ -156,8 +156,8 @@
                                         </div>
                                     </div>
                                     <div class="ms-3">
-                                        <h3 class="small fw-medium text-success mb-1">Historial de Ventas</h3>
-                                        <p class="extra-small text-success mb-0">Ver ventas realizadas</p>
+                                        <h3 class="small fw-semibold text-white mb-1">Historial de Ventas</h3>
+                                        <p class="extra-small text-white mb-0">Ver ventas realizadas</p>
                                     </div>
                                 </div>
                             </div>
@@ -174,8 +174,8 @@
                                         </div>
                                     </div>
                                     <div class="ms-3">
-                                        <h3 class="small fw-medium text-warning mb-1">Control de Caja</h3>
-                                        <p class="extra-small text-warning mb-0">Arqueos y cortes</p>
+                                        <h3 class="small fw-semibold text-white mb-1">Control de Caja</h3>
+                                        <p class="extra-small text-white mb-0">Arqueos y cortes</p>
                                     </div>
                                 </div>
                             </div>
@@ -193,8 +193,8 @@
                                         </div>
                                     </div>
                                     <div class="ms-3">
-                                        <h3 class="small fw-medium text-danger mb-1">Alertas de Stock</h3>
-                                        <p class="extra-small text-danger mb-0">Productos bajos en stock</p>
+                                        <h3 class="small fw-semibold text-white mb-1">Alertas de Stock</h3>
+                                        <p class="extra-small text-white mb-0">Productos bajos en stock</p>
                                     </div>
                                 </div>
                             </div>
@@ -213,8 +213,8 @@
                                         </div>
                                     </div>
                                     <div class="ms-3">
-                                        <h3 class="small fw-medium text-info mb-1">Base de Datos</h3>
-                                        <p class="extra-small text-info mb-0">Backups y gestión</p>
+                                        <h3 class="small fw-semibold text-white mb-1">Base de Datos</h3>
+                                        <p class="extra-small text-white mb-0">Backups y gestión</p>
                                     </div>
                                 </div>
                             </div>

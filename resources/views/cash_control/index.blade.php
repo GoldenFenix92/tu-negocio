@@ -361,8 +361,10 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h3 class="fs-5 fw-medium mb-0">Ventas del Día</h3>
-                        <a href="{{ route('cash_control.reports') }}" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-file-earmark-text me-1"></i> Ver Reportes
+                        <a href="{{ route('cash_control.reports') }}" class="text-decoration-none">
+                            <span class="badge rounded-pill px-3 py-2" style="background-color: var(--color-primary)">
+                                <i class="bi bi-file-earmark-text me-1"></i> Ver Reportes
+                            </span>
                         </a>
                     </div>
 

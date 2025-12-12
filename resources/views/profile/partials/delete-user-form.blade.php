@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h5 class="fw-medium text-danger">Eliminar Cuenta</h5>
+        <h5 class="fw-semibold text-danger">Eliminar Cuenta</h5>
         <p class="small text-secondary">Una vez que tu cuenta sea eliminada, todos sus recursos y datos serán eliminados permanentemente. Antes de eliminar tu cuenta, por favor descarga cualquier dato o información que desees conservar.</p>
     </header>
 

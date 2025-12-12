@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title><?php echo e(config('app.name', 'Laravel')); ?></title>
     
     <!-- Dynamic Font Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family={{ str_replace(' ', '+', $appSettings['font_family'] ?? 'Inter') }}:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=<?php echo e(str_replace(' ', '+', $appSettings['font_family'] ?? 'Inter')); ?>:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
-    <link rel="icon" href="{{ $appSettings['favicon'] ?? asset('favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ $appSettings['logo'] ?? asset('images/brand-logo.png') }}">
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.scss', 'resources/js/app.js']); ?>
+    <link rel="icon" href="<?php echo e($appSettings['favicon'] ?? asset('favicon.ico')); ?>" type="image/x-icon">
+    <link rel="apple-touch-icon" href="<?php echo e($appSettings['logo'] ?? asset('images/brand-logo.png')); ?>">
     
     <style>
         :root {
-            --bg-primary: {{ $appSettings['background_color'] ?? '#111827' }};
-            --text-primary: {{ $appSettings['text_color'] ?? '#d1d5db' }};
-            --color-primary: {{ $appSettings['primary_color'] ?? '#3b82f6' }};
-            --color-secondary: {{ $appSettings['secondary_color'] ?? '#1f2937' }};
-            --font-family: '{{ $appSettings['font_family'] ?? 'Inter' }}', sans-serif;
+            --bg-primary: <?php echo e($appSettings['background_color'] ?? '#111827'); ?>;
+            --text-primary: <?php echo e($appSettings['text_color'] ?? '#d1d5db'); ?>;
+            --color-primary: <?php echo e($appSettings['primary_color'] ?? '#3b82f6'); ?>;
+            --color-secondary: <?php echo e($appSettings['secondary_color'] ?? '#1f2937'); ?>;
+            --font-family: '<?php echo e($appSettings['font_family'] ?? 'Inter'); ?>', sans-serif;
             
-            @php
+            <?php
                 $primary = $appSettings['primary_color'] ?? '#3b82f6';
                 $r = hexdec(substr($primary, 1, 2));
                 $g = hexdec(substr($primary, 3, 2));
@@ -51,20 +51,20 @@
                 $blur1 = round($shadowBlur * 0.3);
                 $blur2 = round($shadowBlur * 0.5);
                 $blur3 = round($shadowBlur * 1.0);
-            @endphp
-            --color-primary-rgb: {{ $r }}, {{ $g }}, {{ $b }};
-            --shadow-color-rgb: {{ $shadowColor }};
-            --shadow-opacity: {{ $shadowOpacity }};
-            --shadow-sm: 0 {{ $sm1 }}px {{ $blur1 }}px 0 rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.3)),
-                         0 {{ $sm1 }}px {{ $blur2 }}px 0 rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.2));
-            --shadow-md: 0 {{ $sm4 }}px {{ $blur2 }}px -1px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.5)),
-                         0 {{ $sm2 }}px {{ $blur1 }}px -2px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.3));
-            --shadow-xl: 0 {{ round(20 * $shadowIntensity) }}px {{ round($shadowBlur * 1.5) }}px -5px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.7)),
-                         0 {{ round(8 * $shadowIntensity) }}px {{ $blur3 }}px -6px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.5));
+            ?>
+            --color-primary-rgb: <?php echo e($r); ?>, <?php echo e($g); ?>, <?php echo e($b); ?>;
+            --shadow-color-rgb: <?php echo e($shadowColor); ?>;
+            --shadow-opacity: <?php echo e($shadowOpacity); ?>;
+            --shadow-sm: 0 <?php echo e($sm1); ?>px <?php echo e($blur1); ?>px 0 rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.3)),
+                         0 <?php echo e($sm1); ?>px <?php echo e($blur2); ?>px 0 rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.2));
+            --shadow-md: 0 <?php echo e($sm4); ?>px <?php echo e($blur2); ?>px -1px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.5)),
+                         0 <?php echo e($sm2); ?>px <?php echo e($blur1); ?>px -2px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.3));
+            --shadow-xl: 0 <?php echo e(round(20 * $shadowIntensity)); ?>px <?php echo e(round($shadowBlur * 1.5)); ?>px -5px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.7)),
+                         0 <?php echo e(round(8 * $shadowIntensity)); ?>px <?php echo e($blur3); ?>px -6px rgba(var(--shadow-color-rgb), calc(var(--shadow-opacity) * 0.5));
             --glow-primary-sm: 0 0 0 1px rgba(var(--color-primary-rgb), 0.1),
-                               0 0 {{ $blur1 }}px 0 rgba(var(--color-primary-rgb), 0.1);
+                               0 0 <?php echo e($blur1); ?>px 0 rgba(var(--color-primary-rgb), 0.1);
             --glow-primary-md: 0 0 0 1px rgba(var(--color-primary-rgb), 0.3),
-                               0 0 {{ $blur3 }}px 0 rgba(var(--color-primary-rgb), 0.2);
+                               0 0 <?php echo e($blur3); ?>px 0 rgba(var(--color-primary-rgb), 0.2);
             --border-color: color-mix(in srgb, var(--text-primary), transparent 70%);
         }
         
@@ -125,46 +125,46 @@
     <div class="auth-card" style="max-width: 32rem;">
         <!-- Logo -->
         <div class="text-center mb-4">
-            <img src="{{ $appSettings['logo'] ?? asset('images/brand-logo.png') }}" alt="{{ config('app.name') }}" class="auth-logo"
+            <img src="<?php echo e($appSettings['logo'] ?? asset('images/brand-logo.png')); ?>" alt="<?php echo e(config('app.name')); ?>" class="auth-logo"
                 style="max-height: 180px;">
         </div>
 
-        @if (Route::has('login'))
+        <?php if(Route::has('login')): ?>
             <!-- Título de bienvenida -->
             <h4 class="auth-title">Bienvenido</h4>
             
             <div class="d-grid gap-3">
-                @auth
-                    <a href="{{ url('/dashboard') }}"
+                <?php if(auth()->guard()->check()): ?>
+                    <a href="<?php echo e(url('/dashboard')); ?>"
                         class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
                         <i class="bi bi-house-door fs-5"></i>
                         <span>Dashboard</span>
                     </a>
-                @else
-                    <a href="{{ route('login') }}"
+                <?php else: ?>
+                    <a href="<?php echo e(route('login')); ?>"
                         class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
                         <i class="bi bi-box-arrow-in-right fs-5"></i>
                         <span>Iniciar Sesión</span>
                     </a>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
+                    <?php if(Route::has('register')): ?>
+                        <a href="<?php echo e(route('register')); ?>"
                             class="btn btn-secondary btn-lg d-flex align-items-center justify-content-center gap-2">
                             <i class="bi bi-person-plus fs-5"></i>
                             <span>Registrarse</span>
                         </a>
-                    @endif
-                @endauth
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
 
             <!-- Información adicional -->
             <div class="text-center mt-4">
                 <p class="text-muted mb-0 small">
-                    {{ config('app.name') }} - Sistema de Punto de Venta
+                    <?php echo e(config('app.name')); ?> - Sistema de Punto de Venta
                 </p>
             </div>
-        @endif
+        <?php endif; ?>
     </div>
 </body>
 
-</html>
+</html><?php /**PATH E:\Proyectos Eliel\EBC-PV\resources\views/welcome.blade.php ENDPATH**/ ?>

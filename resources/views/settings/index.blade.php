@@ -156,6 +156,49 @@
                                     </div>
                                 </div>
 
+                                <!-- Visual Effects -->
+                                <h3 class="h5 mb-4 mt-5 border-bottom pb-2" style="border-color: var(--text-primary) !important;">Efectos Visuales</h3>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-4">
+                                        <label for="shadow_intensity" class="form-label">Intensidad de Sombras</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="range" id="shadow_intensity" name="shadow_intensity" 
+                                                   class="form-range flex-grow-1" 
+                                                   min="0.5" max="2" step="0.1" 
+                                                   value="{{ $settings['shadow_intensity'] ?? '1.0' }}"
+                                                   oninput="updateShadowPreview()">
+                                            <span id="shadow_intensity_value" class="badge bg-secondary" style="min-width: 50px; background-color: var(--color-primary) !important;">1.0x</span>
+                                        </div>
+                                        <div class="form-text text-muted" style="color: var(--text-primary) !important; opacity: 0.7;">Controla el tamaño de las sombras</div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="shadow_blur" class="form-label">Difuminación</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="range" id="shadow_blur" name="shadow_blur" 
+                                                   class="form-range flex-grow-1" 
+                                                   min="0" max="20" step="1" 
+                                                   value="{{ $settings['shadow_blur'] ?? '10' }}"
+                                                   oninput="updateShadowPreview()">
+                                            <span id="shadow_blur_value" class="badge bg-secondary" style="min-width: 50px; background-color: var(--color-primary) !important;">10px</span>
+                                        </div>
+                                        <div class="form-text text-muted" style="color: var(--text-primary) !important; opacity: 0.7;">Nivel de desenfoque de sombras</div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="shadow_opacity" class="form-label">Opacidad de Sombras</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="range" id="shadow_opacity" name="shadow_opacity" 
+                                                   class="form-range flex-grow-1" 
+                                                   min="0.05" max="1" step="0.05" 
+                                                   value="{{ $settings['shadow_opacity'] ?? '0' }}"
+                                                   oninput="updateShadowPreview()">
+                                            <span id="shadow_opacity_value" class="badge bg-secondary" style="min-width: 50px; background-color: var(--color-primary) !important;">Auto</span>
+                                        </div>
+                                        <div class="form-text text-muted" style="color: var(--text-primary) !important; opacity: 0.7;">0 = Automático según tema</div>
+                                    </div>
+                                </div>
+
                                 <div class="d-flex justify-content-end mt-4">
                                     <button type="submit" class="btn btn-primary">
                                         Guardar Cambios
@@ -313,6 +356,17 @@
     <script>
         // Initial preview update
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize shadow slider displays
+            if (document.getElementById('shadow_intensity')) {
+                const intensity = parseFloat(document.getElementById('shadow_intensity').value);
+                const blur = parseInt(document.getElementById('shadow_blur').value);
+                const opacity = parseFloat(document.getElementById('shadow_opacity').value);
+                
+                document.getElementById('shadow_intensity_value').textContent = intensity.toFixed(1) + 'x';
+                document.getElementById('shadow_blur_value').textContent = blur + 'px';
+                document.getElementById('shadow_opacity_value').textContent = opacity === 0 ? 'Auto' : Math.round(opacity * 100) + '%';
+            }
+            
             updatePreview();
         });
 
@@ -333,6 +387,22 @@
             fontLink.href = `https://fonts.googleapis.com/css2?family=${font.replace(/ /g, '+')}:wght@400;600;700&display=swap`;
             document.head.appendChild(fontLink);
 
+            // Calculate brightness for shadow adaptation
+            const bgR = parseInt(background.substr(1, 2), 16);
+            const bgG = parseInt(background.substr(3, 2), 16);
+            const bgB = parseInt(background.substr(5, 2), 16);
+            const brightness = (bgR * 299 + bgG * 587 + bgB * 114) / 1000;
+            const isDark = brightness < 128;
+            
+            // Get shadow configuration from sliders
+            const shadowIntensity = parseFloat(document.getElementById('shadow_intensity')?.value || 1.0);
+            const shadowBlur = parseInt(document.getElementById('shadow_blur')?.value || 10);
+            const shadowOpacityInput = parseFloat(document.getElementById('shadow_opacity')?.value || 0);
+            
+            // Shadow variables based on theme (auto if 0)
+            const shadowColorRgb = '0, 0, 0';
+            const shadowOpacity = shadowOpacityInput === 0 ? (isDark ? 0.5 : 0.15) : shadowOpacityInput;
+            
             // Update CSS variables for the preview container
             container.style.setProperty('--color-primary', primary);
             container.style.setProperty('--color-secondary', secondary);
@@ -340,23 +410,59 @@
             container.style.setProperty('--text-primary', text);
             container.style.setProperty('--font-family', font);
             
-            // Calculate and set derived text colors (simulating color-mix for preview)
-            // Note: In modern browsers, we can just use the same color-mix syntax in inline styles if we want,
-            // but setting the base variables is enough if the container uses the same CSS classes as app.blade.php
-            // However, our preview inline styles might need these variables explicitly if we used them.
-            // Let's set them just in case we use them in the preview HTML.
+            // Calculate and set RGB for primary color (for glow effects)
+            const r = parseInt(primary.substr(1, 2), 16);
+            const g = parseInt(primary.substr(3, 2), 16);
+            const b = parseInt(primary.substr(5, 2), 16);
+            container.style.setProperty('--color-primary-rgb', `${r}, ${g}, ${b}`);
+            
+            // Set shadow variables with configurable values
+            container.style.setProperty('--shadow-color-rgb', shadowColorRgb);
+            container.style.setProperty('--shadow-opacity', shadowOpacity);
+            container.style.setProperty('--shadow-intensity', shadowIntensity);
+            container.style.setProperty('--shadow-blur-base', `${shadowBlur}px`);
+            
+            // Calculate shadows with intensity and blur multipliers
+            const sm1 = Math.round(1 * shadowIntensity);
+            const sm2 = Math.round(2 * shadowIntensity);
+            const sm3 = Math.round(3 * shadowIntensity);
+            const blur1 = Math.round(shadowBlur * 0.3);
+            const blur2 = Math.round(shadowBlur * 0.5);
+            const blur3 = Math.round(shadowBlur * 1.0);
+            const blur4 = Math.round(shadowBlur * 1.5);
+            
+            container.style.setProperty('--shadow-sm', `0 ${sm1}px ${blur1}px 0 rgba(${shadowColorRgb}, ${shadowOpacity * 0.3}), 0 ${sm1}px ${blur2}px 0 rgba(${shadowColorRgb}, ${shadowOpacity * 0.2})`);
+            container.style.setProperty('--shadow-md', `0 ${Math.round(4 * shadowIntensity)}px ${blur2}px -1px rgba(${shadowColorRgb}, ${shadowOpacity * 0.5}), 0 ${sm2}px ${blur1}px -2px rgba(${shadowColorRgb}, ${shadowOpacity * 0.3})`);
+            container.style.setProperty('--shadow-lg', `0 ${Math.round(10 * shadowIntensity)}px ${blur3}px -3px rgba(${shadowColorRgb}, ${shadowOpacity * 0.6}), 0 ${Math.round(4 * shadowIntensity)}px ${blur2}px -4px rgba(${shadowColorRgb}, ${shadowOpacity * 0.4})`);
+            
+            // Set glow variables
+            container.style.setProperty('--glow-primary-sm', `0 0 0 1px rgba(${r}, ${g}, ${b}, 0.1), 0 0 ${blur1}px 0 rgba(${r}, ${g}, ${b}, 0.1)`);
+            container.style.setProperty('--glow-primary-md', `0 0 0 1px rgba(${r}, ${g}, ${b}, 0.3), 0 0 ${blur3}px 0 rgba(${r}, ${g}, ${b}, 0.2)`);
+            
+            // Border color
+            container.style.setProperty('--border-color', `color-mix(in srgb, ${text}, transparent 70%)`);
+            
+            // Derived text colors
             container.style.setProperty('--text-secondary', `color-mix(in srgb, ${text}, transparent 30%)`);
             container.style.setProperty('--text-muted', `color-mix(in srgb, ${text}, transparent 50%)`);
 
             // Update specific elements
             document.getElementById('preview-app-name').textContent = appName;
             document.getElementById('preview-body').style.fontFamily = font;
+        }
+
+        function updateShadowPreview() {
+            // Update value displays
+            const intensity = parseFloat(document.getElementById('shadow_intensity').value);
+            const blur = parseInt(document.getElementById('shadow_blur').value);
+            const opacity = parseFloat(document.getElementById('shadow_opacity').value);
             
-            // Update RGB for box-shadow simulation if needed
-            const r = parseInt(primary.substr(1, 2), 16);
-            const g = parseInt(primary.substr(3, 2), 16);
-            const b = parseInt(primary.substr(5, 2), 16);
-            container.style.setProperty('--color-primary-rgb', `${r}, ${g}, ${b}`);
+            document.getElementById('shadow_intensity_value').textContent = intensity.toFixed(1) + 'x';
+            document.getElementById('shadow_blur_value').textContent = blur + 'px';
+            document.getElementById('shadow_opacity_value').textContent = opacity === 0 ? 'Auto' : Math.round(opacity * 100) + '%';
+            
+            // Update the preview
+            updatePreview();
         }
 
         function handleLogoUpload(event) {

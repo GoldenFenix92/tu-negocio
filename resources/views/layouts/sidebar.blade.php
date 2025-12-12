@@ -12,6 +12,7 @@
         background-color: var(--color-primary) !important;
         color: #fff !important;
         opacity: 1 !important;
+        box-shadow: var(--shadow-md), var(--glow-primary-sm);
     }
     
     html body .offcanvas-lg .sidebar-link.active {
@@ -19,7 +20,7 @@
         color: #fff !important;
         opacity: 1 !important;
         font-weight: 600;
-        box-shadow: 0 4px 6px -1px rgba(var(--color-primary-rgb), 0.3);
+        box-shadow: var(--shadow-md), var(--glow-primary-md);
     }
 
     /* Sub-menu Links */
@@ -27,6 +28,7 @@
         color: var(--color-primary) !important;
         background-color: rgba(var(--color-primary-rgb), 0.1) !important;
         padding-left: 1rem !important;
+        box-shadow: var(--shadow-sm);
     }
     
     html body .offcanvas-lg .sidebar-link-sub.active {
@@ -34,15 +36,17 @@
         background-color: rgba(var(--color-primary-rgb), 0.15) !important;
         font-weight: 700 !important;
         border-right: 3px solid var(--color-primary);
+        box-shadow: var(--shadow-sm);
     }
 
     /* Sidebar Container Override */
     html body .sidebar-offcanvas {
         background-color: var(--color-secondary) !important;
-        border-right-color: var(--text-primary) !important;
+        border-right-color: var(--border-color) !important;
+        box-shadow: var(--shadow-lg);
     }
 </style>
-<div class="offcanvas-header border-bottom" style="background-color: var(--color-secondary); border-color: var(--text-primary) !important;">
+<div class="offcanvas-header border-bottom" style="background-color: var(--color-secondary); border-color: var(--border-color) !important; box-shadow: var(--shadow-sm);">
     <h5 class="offcanvas-title" id="sidebarOffcanvasLabel" style="color: var(--text-primary);">
         <img src="{{ $appSettings['logo'] ?? asset('images/brand-logo.png') }}" alt="{{ $appSettings['app_name'] ?? 'POS Admin' }}" style="max-height: 40px;">
         <span class="ms-2">{{ $appSettings['app_name'] ?? 'POS Admin' }}</span>
@@ -52,12 +56,12 @@
 
 <div class="offcanvas-body p-0 d-flex flex-column" style="background-color: var(--color-secondary);">
     {{-- User Profile Section --}}
-    <div class="p-3 border-bottom" style="border-color: var(--text-primary) !important; opacity: 0.8;">
+    <div class="p-3 border-bottom" style="border-color: var(--border-color) !important; opacity: 0.8; box-shadow: 0 1px 0 0 rgba(var(--shadow-color-rgb), 0.05);">
         <a href="{{ route('profile.edit') }}" class="d-flex align-items-center p-2 rounded text-decoration-none sidebar-link" style="color: var(--text-primary);">
             <img src="{{ auth()->user()->imageUrl() }}"
                  alt="{{ auth()->user()->name }}"
                  class="rounded-circle object-fit-cover border"
-                 style="width: 48px; height: 48px; border-color: var(--text-primary) !important;">
+                 style="width: 48px; height: 48px; border-color: var(--border-color) !important; box-shadow: var(--shadow-sm);">
             <div class="ms-3 flex-fill overflow-hidden">
                 <p class="small fw-medium text-truncate mb-0" style="color: var(--text-primary);">{{ auth()->user()->name }}</p>
                 <p class="text-truncate mb-0" style="font-size: 0.75rem; color: var(--text-primary); opacity: 0.7;">{{ auth()->user()->email }}</p>
@@ -205,8 +209,18 @@
         </div>
     </nav>
 
+    {{-- Manual --}}
+    <div class="mt-2 px-3">
+        <a href="{{ route('manual.index') }}" 
+           class="nav-link sidebar-link rounded d-flex align-items-center gap-2 {{ request()->routeIs('manual.*') ? 'active' : '' }}" 
+           style="color: var(--text-primary);">
+            <i class="bi bi-book"></i>
+            <span>Manual de Usuario</span>
+        </a>
+    </div>
+
     {{-- Logout button --}}
-    <div class="p-3 border-top mt-auto" style="border-color: var(--text-primary) !important; opacity: 0.8;">
+    <div class="p-3 border-top mt-auto" style="border-color: var(--border-color) !important; opacity: 0.8; box-shadow: 0 -1px 0 0 rgba(var(--shadow-color-rgb), 0.05);">
         <form id="logout-form" method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" id="logout-button" class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2">

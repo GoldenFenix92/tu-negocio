@@ -10,6 +10,7 @@ use App\Http\Controllers\CashControlController; // Import CashControlController
 use App\Http\Controllers\CouponController; // Import CouponController
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ManualController; // Import ManualController
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -198,6 +199,10 @@ Route::middleware('auth')->group(function () {
         ];
         return view('admin.role-management', compact('roleCounts'));
     })->name('admin.role_management')->middleware('can:user_management.view');
+
+    // Manual Routes
+    Route::get('/manual', [ManualController::class, 'index'])->name('manual.index');
+    Route::get('/manual/{type}', [ManualController::class, 'show'])->name('manual.show');
 
 });
 

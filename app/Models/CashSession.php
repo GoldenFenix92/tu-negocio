@@ -65,12 +65,12 @@ class CashSession extends Model
      */
     public function addSale(Sale $sale)
     {
-        $this->increment('total_sales', $sale->total_amount);
+        $this->increment('total_sales', (float) $sale->total_amount);
 
         if ($sale->payment_method === 'efectivo') {
-            $this->increment('total_cash', $sale->cash_amount);
+            $this->increment('total_cash', (float) $sale->cash_amount);
         } elseif ($sale->payment_method === 'tarjeta') {
-            $this->increment('total_card', $sale->card_amount);
+            $this->increment('total_card', (float) $sale->card_amount);
         }
 
         // Actualizar el end_folio con el folio de la última venta
